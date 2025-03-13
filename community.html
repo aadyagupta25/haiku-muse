@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haiku Muse - Community & Resources</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f6f1; /* Light earthy tone */
+            color: #3d3d3d;
+            line-height: 1.7;
+        }
+        /* Header with colourful, earthy banner */
+        header {
+            position: relative;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.7), rgba(205,133,63,0.8)),
+            url('https://source.unsplash.com/1600x900/?cherry-blossom') no-repeat center center/cover;
+            color: #fff;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+        }
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.8em;
+            margin: 20px 0;
+        }
+        /* Navigation Bar */
+        nav {
+            background-color: #fff;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #3d3d3d;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #e6c59c;
+            color: #a1663e;
+        }
+        /* Main Content */
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        /* Article Styling */
+        article {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        article h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            color: #a1663e;
+            border-bottom: 3px solid #a1663e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        article p {
+            font-size: 1.2em;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        /* Footer */
+        footer {
+            background-color: #3d3d3d;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.8em;
+            }
+            article h2 {
+                font-size: 2em;
+            }
+        }
+        
+        /* Additional styles for the community page */
+        .resource-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .resource-card h3 {
+            color: #a1663e;
+            margin-top: 0;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .community-section {
+            margin-bottom: 40px;
+        }
+        
+        .tab-container {
+            margin: 30px 0;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            background-color: #f2e8dc;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .tab-button:hover {
+            background-color: #e6c59c;
+        }
+        
+        .tab-button.active {
+            background-color: #a1663e;
+            color: white;
+        }
+        
+        .tab-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 0 5px 5px 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            min-height: 300px;
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .event-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .event-item {
+            padding: 15px;
+            border-left: 4px solid #a1663e;
+            margin-bottom: 15px;
+            background-color: #f9f6f1;
+        }
+        
+        .event-date {
+            font-weight: bold;
+            color: #a1663e;
+        }
+        
+        .forum-topic {
+            padding: 15px;
+            border-bottom: 1px solid #e6c59c;
+        }
+        
+        .forum-topic:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            color: #3d3d3d;
+        }
+        
+        .topic-meta {
+            color: #777;
+            font-size: 0.9em;
+        }
+        
+        .submission-form {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .btn-submit {
+            background-color: #a1663e;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #8a552f;
+        }
+        
+        .testimonial {
+            font-style: italic;
+            position: relative;
+            padding: 20px 40px;
+        }
+        
+        .testimonial::before {
+            content: '"';
+            font-size: 5em;
+            font-family: 'Playfair Display', serif;
+            color: #e6c59c;
+            position: absolute;
+            left: 0;
+            top: -20px;
+        }
+        
+        .author {
+            text-align: right;
+            font-weight: 500;
+            color: #a1663e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Haiku Muse</h1>
+        <p>Explore, Create, and Celebrate the Art of Haiku</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="introduction.html">Introduction</a></li>
+            <li><a href="timeline.html">Timeline</a></li>
+            <li><a href="cultural.html">Culture</a></li>
+            <li><a href="popular.html">Pop Culture</a></li>
+            <li><a href="community.html" class="active">Community</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <article>
+            <h2>Join Our Haiku Community</h2>
+            <p>Connect with fellow haiku enthusiasts, share your work, and explore the fascinating world of this ancient poetic form. Our community brings together poets, scholars, and admirers from around the globe, all united by a love for the beautiful simplicity of haiku.</p>
+            
+            <div class="testimonial">
+                <p>Through haiku, I discovered a new way of seeing the world—finding beauty in fleeting moments that I would have otherwise missed.</p>
+                <p class="author">— Akira Tanaka</p>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="events">Upcoming Events</button>
+                    <button class="tab-button" data-tab="submissions">Submit Your Haiku</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-panel active" id="events-panel">
+                        <h3>Upcoming Haiku Events</h3>
+                        <ul class="event-list">
+                            <li class="event-item">
+                                <p class="event-date">April 17, 2025</p>
+                                <h4>International Haiku Poetry Day</h4>
+                                <p>Join our virtual celebration with readings, workshops, and a special guest lecture by renowned haiku poet Chiyo Suzuki.</p>
+                        </ul>
+                    </div>
+                    
+                   
+                    <div class="tab-panel" id="submissions-panel">
+                        <h3>Submit Your Haiku</h3>
+                        <p>Share your original haiku with our community. Selected works will be featured in our monthly newsletter and may be included in our annual anthology.</p>
+                        <form class="submission-form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="haiku">Your Haiku</label>
+                                <textarea id="haiku" rows="5" required placeholder="Enter your haiku here..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="inspiration">Inspiration/Context (Optional)</label>
+                                <textarea id="inspiration" rows="3" placeholder="Share the story or inspiration behind your haiku..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Submit Haiku</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <article>
+            <h2>Haiku Resources</h2>
+            <p>Whether you're new to haiku or looking to deepen your practice, we've curated quality resources to support your journey. From historical context to contemporary practices, these resources offer valuable insights into the art of haiku.</p>
+            
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <h3>Books for Beginners</h3>
+                    <p>Essential reading for those new to the world of haiku:</p>
+                    <ul>
+                        <li>The Haiku Handbook by William J. Higginson</li>
+                        <li>Haiku: A Poet's Guide by Lee Gurga</li>
+                        <li>Writing and Enjoying Haiku by Jane Reichhold</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Classical Collections</h3>
+                    <p>Masterworks by the great haiku poets:</p>
+                    <ul>
+                        <li>The Narrow Road to the Deep North by Matsuo Basho</li>
+                        <li>The Complete Haiku by Kobayashi Issa</li>
+                        <li>The Classic Tradition of Haiku: An Anthology</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Online Journals</h3>
+                    <p>Contemporary haiku publications:</p>
+                    <ul>
+                        <li>Modern Haiku</li>
+                        <li>Frogpond</li>
+                        <li>The Heron's Nest</li>
+                        <li>Contemporary Haibun Online</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Haiku Societies</h3>
+                    <p>Organizations dedicated to promoting haiku:</p>
+                    <ul>
+                        <li>The Haiku Society of America</li>
+                        <li>British Haiku Society</li>
+                        <li>Haiku International Association</li>
+                        <li>Haiku Canada</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Learning Tools</h3>
+                    <p>Resources to improve your haiku practice:</p>
+                    <ul>
+                        <li>Kigo (Seasonal Word) Database</li>
+                        <li>Haiku Writing Worksheets</li>
+                        <li>Haiku Techniques Video Series</li>
+                        <li>Syllable Counter Tool</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Academic Research</h3>
+                    <p>Scholarly resources on haiku:</p>
+                    <ul>
+                        <li>Journal of Haiku Studies</li>
+                        <li>The Haiku Foundation Digital Library</li>
+                        <li>Essays on Japanese Aesthetics</li>
+                        <li>Haiku in Translation Studies</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+        
+       
+    <footer>
+        <p>&copy; 2025 Haiku Muse. All Rights Reserved. </a>.</p>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and panels
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Show corresponding panel
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(`${tabId}-panel`).classList.add('active');
+            });
+        });
+        
+        // Form submission (prevent default for demo)
+        const submissionForm = document.querySelector('.submission-form');
+        if (submissionForm) {
+            submissionForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your submission! Our editors will review your haiku soon.');
+                submissionForm.reset();
+            });
+        }
+    </script>
+</body>
+</html>

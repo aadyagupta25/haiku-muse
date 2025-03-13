@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haiku Muse - Introduction to Haiku</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f6f1; /* Light earthy tone */
+      color: #3d3d3d;
+      line-height: 1.7;
+    }
+    /* Header with colourful, earthy banner */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, rgba(139,69,19,0.7), rgba(205,133,63,0.8)),
+        url('https://source.unsplash.com/1600x900/?bamboo') no-repeat center center/cover;
+      color: #fff;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.8em;
+      margin: 20px 0;
+    }
+    /* Navigation Bar */
+    nav {
+      background-color: #fff;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 10px 0;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #3d3d3d;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: #e6c59c;
+      color: #a1663e;
+    }
+    /* Main Content */
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    /* Article Styling */
+    article {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      color: #a1663e;
+      border-bottom: 3px solid #a1663e;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    article h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8em;
+      color: #a1663e;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    article p {
+      font-size: 1.2em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    /* Tabbed Content */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e6c59c;
+      margin-bottom: 20px;
+    }
+    .tab-button {
+      padding: 10px 20px;
+      background-color: #f9f6f1;
+      border: none;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 0.3s;
+    }
+    .tab-button.active {
+      background-color: #e6c59c;
+      color: #3d3d3d;
+      font-weight: 500;
+    }
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background-color: #f9f6f1;
+      border-radius: 0 0 5px 5px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* Interactive Elements */
+    .haiku-example {
+      background-color: #f1e8dd;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .haiku-text {
+      font-size: 1.3em;
+      font-style: italic;
+      line-height: 2;
+      position: relative;
+      z-index: 2;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+    }
+    .analysis-toggle {
+      margin-top: 15px;
+      color: #a1663e;
+      text-decoration: underline;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 500;
+    }
+    .haiku-analysis {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease-out;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      padding: 0 15px;
+      margin-top: 15px;
+    }
+    .haiku-analysis.active {
+      height: auto;
+      padding: 15px;
+    }
+    /* Timeline Element */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 50px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: #e6c59c;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -45px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #a1663e;
+    }
+    .timeline-date {
+      font-weight: bold;
+      color: #a1663e;
+      margin-bottom: 5px;
+    }
+    /* Interactive Syllable Counter */
+    .syllable-counter {
+      background-color: #e6c59c;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+    .syllable-counter h3 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .counter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .counter-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Roboto', sans-serif;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .counter-form button {
+      background-color: #a1663e;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 0.3s;
+      align-self: center;
+    }
+    .counter-form button:hover {
+      background-color: #8b4513;
+    }
+    .syllable-results {
+      display: none;
+      margin-top: 20px;
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .syllable-results.active {
+      display: block;
+    }
+    .syllable-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 5px 0;
+      border-bottom: 1px solid #f1e8dd;
+    }
+    .syllable-line:last-child {
+      border-bottom: none;
+    }
+    .syllable-count {
+      font-weight: bold;
+      color: #a1663e;
+    }
+    .format-correct {
+      color: green;
+    }
+    .format-incorrect {
+      color: red;
+    }
+    /* Footer */
+    footer {
+      background-color: #3d3d3d;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.8em;
+      }
+      article h2 {
+        font-size: 2em;
+      }
+      .tabs {
+        flex-direction: column;
+      }
+      .tab-button {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Introduction to Haiku</h1>
+    <p>The Art and Essence of Japanese Poetic Brevity</p>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="introduction.html">Introduction</a></li>
+      <li><a href="timeline.html">Timeline</a></li>
+      <li><a href="cultural.html">Culture</a></li>
+      <li><a href="popular.html">Pop Culture</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <article>
+      <h2>Haiku Muse</h2>
+      <p>
+        Haiku poetry represents one of the most distinctive and influential forms of Japanese literature, renowned for its ability to capture fleeting moments of natural beauty and philosophical insight in just a few carefully chosen words. Traditional haiku emerged in Japan during the 17th century as a refined development of earlier poetic forms, establishing a structure and aesthetic philosophy that continues to inspire writers worldwide.
+      </p>
+      
+      <div class="gallery">
+        <img src="https://source.unsplash.com/random/400x300/?japan,mountain" alt="Japanese Mountain Landscape">
+        <img src="https://source.unsplash.com/random/400x300/?zen,stone" alt="Zen Stones">
+      </div>
+      
+      <div class="tabs">
+        <button class="tab-button active" data-tab="structure">Structure</button>
+        <button class="tab-button" data-tab="themes">Themes & Kigo</button>
+        <button class="tab-button" data-tab="masters">Great Masters</button>
+      </div>
+      
+      <div id="structure" class="tab-content active">
+        <h3>The Form and Structure of Haiku</h3>
+        <p>
+          In its classical form, haiku adheres to a precise structure of three phrases totaling 17 syllables, distributed in a 5-7-5 pattern. This syllabic discipline creates a rhythmic framework that feels both natural and purposeful in Japanese. While modern English-language haiku practitioners often relax this strict syllable count to accommodate linguistic differences, the essence of brevity and concision remains paramount.
+        </p>
+        <p>
+          Beyond syllable count, traditional haiku exhibits several defining characteristics:
+        </p>
+        <ul>
+          <li><strong>Kireji (cutting word):</strong> A verbal punctuation that creates a pause or shift in thought</li>
+          <li><strong>Kigo (seasonal reference):</strong> A word or phrase that indicates the season</li>
+          <li><strong>Juxtaposition:</strong> The comparison or contrast of two images or ideas</li>
+          <li><strong>Present tense:</strong> Most haiku are written in the present tense to convey immediacy</li>
+        </ul>
+        
+        <div class="haiku-example">
+          <div class="haiku-text">
+            An old silent pond...<br>
+            A frog jumps into the pond,<br>
+            splash! Silence again.
+          </div>
+          <div class="analysis-toggle">Show Analysis</div>
+          <div class="haiku-analysis">
+            <p>This famous haiku by Matsuo Bashō demonstrates several key elements:</p>
+            <ul>
+              <li>Structure: While the English translation approximates the 5-7-5 pattern, the original Japanese adheres strictly to it</li>
+              <li>Juxtaposition: Silence contrasted with the momentary splash</li>
+              <li>Kigo: The frog suggests spring</li>
+              <li>Kireji: The "splash!" serves as a cutting word, creating a dramatic pause</li>
+              <li>Simplicity: Uses common, concrete imagery to evoke emotion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div id="themes" class="tab-content">
+        <h3>Seasonal References and Thematic Elements</h3>
+        <p>
+          Traditional haiku is deeply connected to the natural world and typically includes a seasonal reference (kigo) that places the poem within the cyclical rhythm of nature. These references can be direct mentions of seasons or more subtle allusions through seasonal phenomena, plants, or activities.
+        </p>
+        
+        <h4>Common Seasonal References (Kigo)</h4>
+        <ul>
+          <li><strong>Spring:</strong> Cherry blossoms, frogs, plum blossoms, warm rain</li>
+          <li><strong>Summer:</strong> Cicadas, sunflowers, warm breeze, fireflies</li>
+          <li><strong>Autumn:</strong> Harvest moon, fallen leaves, migrating birds, chrysanthemums</li>
+          <li><strong>Winter:</strong> Snow, bare branches, withered fields, north wind</li>
+        </ul>
+        
+        <div class="haiku-example">
+          <div class="haiku-text">
+            Autumn moonlight—<br>
+            a worm digs silently<br>
+            into the chestnut.
+          </div>
+          <div class="analysis-toggle">Show Analysis</div>
+          <div class="haiku-analysis">
+            <p>This haiku by Bashō demonstrates how seasonal references work:</p>
+            <ul>
+              <li>The autumn moon and chestnuts both serve as autumn kigo</li>
+              <li>The juxtaposition of the magnificent moon with the humble worm creates depth</li>
+              <li>The silent activity below contrasts with the luminous beauty above</li>
+              <li>Impermanence is suggested by the worm's consumption of the chestnut</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div id="masters" class="tab-content">
+        <h3>The Great Haiku Masters</h3>
+        <p>
+          Throughout history, several poets have achieved legendary status through their contributions to haiku. Their work continues to inspire and guide practitioners worldwide.
+        </p>
+        
+        <h4>Matsuo Bashō (1644-1694)</h4>
+        <p>
+          Considered the greatest master of haiku, Bashō elevated the form from a popular parlor game to a serious artistic medium. His work combines technical perfection with profound spiritual insight, often reflecting his Zen Buddhist worldview and wandering lifestyle.
+        </p>
+        
+        <div class="haiku-example">
+          <div class="haiku-text">
+            The first snow falls—<br>
+            just enough to bend<br>
+            the daffodil leaves.
+          </div>
+          <div class="analysis-toggle">Show Analysis</div>
+          <div class="haiku-analysis">
+            <p>This haiku exemplifies Bashō's sensitive observation of nature:</p>
+            <ul>
+              <li>The delicate balance between the weight of snow and the strength of the leaves</li>
+              <li>Seasonal transition captured in a single moment</li>
+              <li>The subtle suggestion of resilience in nature</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h4>Yosa Buson (1716-1784)</h4>
+        <p>
+          A renowned painter as well as poet, Buson brought a visual artist's sensibility to haiku, creating poems of exceptional visual clarity and beauty. His work often features striking imagery and sensory detail.
+        </p>
+        
+        <h4>Kobayashi Issa (1763-1828)</h4>
+        <p>
+          Known for his compassionate view of all living beings, Issa's haiku frequently express empathy for small creatures and reflect on the joys and sorrows of human existence with a distinctive warmth and humanity.
+        </p>
+        
+        <h4>Masaoka Shiki (1867-1902)</h4>
+        <p>
+          The great modernizer of haiku, Shiki established it as an independent poetic form and emphasized "sketching from life" (shasei) as a compositional principle, encouraging direct observation rather than conventional imagery.
+        </p>
+      </div>
+      
+      <div class="syllable-counter">
+        <h3>Try Writing Your Own Haiku</h3>
+        <p>Use this tool to check your haiku's syllable count and structure.</p>
+        
+        <div class="counter-form">
+          <textarea id="haiku-input" placeholder="Enter your haiku here (one line per verse)..."></textarea>
+          <button id="count-syllables">Check My Haiku</button>
+        </div>
+        
+        <div id="syllable-results" class="syllable-results">
+          <h4>Analysis:</h4>
+          <div id="line-results"></div>
+          <div id="format-result" class="format-result"></div>
+        </div>
+      </div>
+    </article>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 Haiku Muse. All rights reserved.</p>
+    <p>Dedicated to the appreciation and preservation of haiku poetry worldwide.</p>
+  </footer>
+
+  <script>
+    // Tab functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and content
+        document.querySelectorAll('.tab-button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+    
+    // Haiku analysis toggle functionality
+    document.querySelectorAll('.analysis-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const analysis = toggle.nextElementSibling;
+        if (analysis.classList.contains('active')) {
+          analysis.classList.remove('active');
+          toggle.textContent = 'Show Analysis';
+        } else {
+          analysis.classList.add('active');
+          toggle.textContent = 'Hide Analysis';
+        }
+      });
+    });
+    
+    // Syllable counter functionality
+    document.getElementById('count-syllables').addEventListener('click', () => {
+      const haikuText = document.getElementById('haiku-input').value;
+      const lines = haikuText.split('\n').filter(line => line.trim() !== '');
+      
+      // Simple syllable counting function
+      function countSyllables(word) {
+        word = word.toLowerCase();
+        if (word.length <= 3) return 1;
+        
+        // Remove punctuation
+        word = word.replace(/[^\w\s]|_/g, "");
+        
+        // Count vowel groups as syllables
+        const vowels = "aeiouy";
+        let count = 0;
+        let lastWasVowel = false;
+        
+        for (let i = 0; i < word.length; i++) {
+          const isVowel = vowels.includes(word[i]);
+          if (isVowel && !lastWasVowel) {
+            count++;
+          }
+          lastWasVowel = isVowel;
+        }
+        
+        // Handle some special cases
+        if (word.endsWith('e')) count--;
+        if (word.endsWith('le') && word.length > 2 && !vowels.includes(word[word.length - 3])) count++;
+        if (count === 0) count = 1;
+        
+        return count;
+      }
+      
+      // Process each line
+      const results = document.getElementById('line-results');
+      results.innerHTML = '';
+      
+      const syllableCounts = lines.map(line => {
+        const words = line.trim().split(/\s+/);
+        const syllables = words.reduce((total, word) => total + countSyllables(word), 0);
+        
+        // Create result entry for this line
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'syllable-line';
+        lineDiv.innerHTML = `
+          <div class="line-text">"${line}"</div>
+          <div class="syllable-count">${syllables} syllables</div>
+        `;
+        results.appendChild(lineDiv);
+        
+        return syllables;
+      });
+      
+      // Check if structure matches 5-7-5 pattern
+      const formatResult = document.getElementById('format-result');
+      if (lines.length === 3 && syllableCounts[0] === 5 && syllableCounts[1] === 7 && syllableCounts[2] === 5) {
+        formatResult.innerHTML = '<p class="format-correct">Perfect! Your haiku follows the traditional 5-7-5 syllable pattern.</p>';
+      } else if (lines.length === 3) {
+        formatResult.innerHTML = '<p class="format-incorrect">Your haiku has 3 lines but doesn\'t follow the traditional 5-7-5 syllable pattern.</p>';
+      } else {
+        formatResult.innerHTML = '<p class="format-incorrect">Traditional haiku should have exactly 3 lines.</p>';
+      }
+      
+      // Show results
+      document.getElementById('syllable-results').classList.add('active');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haiku Muse - Cultural Significance</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f6f1; /* Light earthy tone */
+      color: #3d3d3d;
+      line-height: 1.7;
+    }
+    /* Header with colourful, earthy banner */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, rgba(139,69,19,0.7), rgba(205,133,63,0.8)),
+        url('https://source.unsplash.com/1600x900/?cherry-blossom') no-repeat center center/cover;
+      color: #fff;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.8em;
+      margin: 20px 0;
+    }
+    /* Navigation Bar */
+    nav {
+      background-color: #fff;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 10px 0;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #3d3d3d;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: #e6c59c;
+      color: #a1663e;
+    }
+    /* Main Content */
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    /* Article Styling */
+    article {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      color: #a1663e;
+      border-bottom: 3px solid #a1663e;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    article p {
+      font-size: 1.2em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    /* Footer */
+    footer {
+      background-color: #3d3d3d;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.8em;
+      }
+      article h2 {
+        font-size: 2em;
+      }
+    }
+    
+    /* Additional styles for the cultural page */
+    .timeline {
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #a1663e;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+    
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      right: -17px;
+      background-color: #e6c59c;
+      border: 4px solid #a1663e;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    
+    .left {
+      left: 0;
+    }
+    
+    .right {
+      left: 50%;
+    }
+    
+    .right::after {
+      left: -16px;
+    }
+    
+    .timeline-content {
+      padding: 20px 30px;
+      background-color: #fff;
+      position: relative;
+      border-radius: 6px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    
+    .timeline-content h3 {
+      font-family: 'Playfair Display', serif;
+      color: #a1663e;
+      margin-top: 0;
+    }
+    
+    .timeline-content::after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      width: 0;
+      height: 0;
+      top: 22px;
+    }
+    
+    .left .timeline-content::after {
+      border-width: 10px 10px 10px 0;
+      border-color: transparent #fff transparent transparent;
+      right: -10px;
+    }
+    
+    .right .timeline-content::after {
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent #fff;
+      left: -10px;
+    }
+    
+    .kanji-explained {
+      background-color: #f1e8dd;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+    
+    .kanji-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    
+    .kanji-card {
+      width: 200px;
+      background: white;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .kanji-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .kanji-character {
+      font-size: 3em;
+      margin: 10px 0;
+    }
+    
+    .kanji-meaning {
+      font-weight: 500;
+      color: #a1663e;
+    }
+    
+    .quote-section {
+      background-color: #f1e8dd;
+      border-left: 5px solid #a1663e;
+      padding: 25px;
+      font-style: italic;
+      margin: 30px 0;
+    }
+    
+    .quote-section p {
+      font-size: 1.4em;
+      color: #4e3629;
+    }
+    
+    .quote-section .author {
+      text-align: right;
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #a1663e;
+    }
+    
+    .interactive-kanji {
+      background-color: #e6c59c;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      margin: 30px 0;
+    }
+    
+    .interactive-kanji h3 {
+      font-family: 'Playfair Display', serif;
+      color: #3d3d3d;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+    
+    .kanji-display {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-style: italic;
+      line-height: 2;
+      font-size: 1.3em;
+    }
+    
+    button {
+      background-color: #a1663e;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #8b4513;
+    }
+    
+    .tab-container {
+      margin: 30px 0;
+    }
+    
+    .tab-buttons {
+      display: flex;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    
+    .tab-button {
+      background-color: #e6c59c;
+      color: #3d3d3d;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 5px;
+      cursor: pointer;
+      border-radius: 5px 5px 0 0;
+      transition: background-color 0.3s;
+    }
+    
+    .tab-button.active {
+      background-color: #a1663e;
+      color: white;
+    }
+    
+    .tab-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @media (max-width: 800px) {
+      .timeline::before {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item::after {
+        left: 15px;
+        right: auto;
+      }
+      
+      .left::after, .right::after {
+        left: 15px;
+      }
+      
+      .right {
+        left: 0;
+      }
+      
+      .left .timeline-content::after, .right .timeline-content::after {
+        border-width: 10px 10px 10px 0;
+        border-color: transparent #fff transparent transparent;
+        left: -10px;
+        right: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Haiku Muse</h1>
+    <p>Cultural Significance of Haiku Poetry</p>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="introduction.html">Introduction</a></li>
+      <li><a href="timeline.html">Timeline</a></li>
+      <li><a href="cultural.html">Culture</a></li>
+      <li><a href="popular.html">Pop Culture</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <article>
+      <h2>The Cultural Significance of Haiku</h2>
+      <p>
+        Haiku poetry represents far more than a simple literary form—it embodies fundamental elements of Japanese aesthetic principles and worldview. Through its brief but profound structure, haiku captures the Japanese cultural values of simplicity, transience, and deep appreciation for nature's subtle beauty.
+      </p>
+      
+      <div class="quote-section">
+        <p>"Between the silence of falling leaves, a new world emerges."</p>
+        <div class="author">— Matsuo Bashō</div>
+      </div>
+      
+      <p>
+        The evolution of haiku through Japanese history reflects broader cultural and societal shifts, from its origins in courtly traditions to its current status as a globally recognized art form. Each era has contributed uniquely to haiku's development, making it a living chronicle of Japanese aesthetic sensibilities.
+      </p>
+      
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button class="tab-button active" onclick="openTab(event, 'historical')">Cultural Evolution</button>
+          <button class="tab-button" onclick="openTab(event, 'visual')">Visual Elements</button>
+          <button class="tab-button" onclick="openTab(event, 'global')">Global Influence</button>
+        </div>
+        
+        <div id="historical" class="tab-content active">
+          <h3>Cultural Evolution of Haiku</h3>
+          <p>
+            Haiku has undergone significant transformation throughout Japanese culture, evolving from collaborative poetry traditions to an autonomous art form with global reach. The timeline below highlights key periods in haiku's development and the cultural factors that shaped its evolution.
+          </p>
+          
+          <div class="timeline">
+            <div class="timeline-item left">
+              <div class="timeline-content">
+                <h3>16th Century - Early Origins</h3>
+                <p>During the late Muromachi period, Japanese poetry was dominated by renga (linked verse). The hokku—the opening stanza of these collaborative poems—began laying the groundwork for what would eventually evolve into haiku.</p>
+                <p>Poetic activities were largely confined to elite circles, with the hokku serving as a communal, mood-setting device rather than a standalone genre.</p>
+              </div>
+            </div>
+            <div class="timeline-item right">
+              <div class="timeline-content">
+                <h3>17th Century - Emergence of Autonomy</h3>
+                <p>In the early Edo period, the hokku began to be appreciated as an autonomous poetic unit. This shift was instrumental in the emergence of haiku as a distinct form.</p>
+                <p>Renowned poets like Matsuo Bashō played a pivotal role by elevating the aesthetic quality of these brief verses. The era emphasized simplicity, nature, and the transient beauty of a moment.</p>
+              </div>
+            </div>
+            <div class="timeline-item left">
+              <div class="timeline-content">
+                <h3>18th Century - Codification</h3>
+                <p>The Edo period continued, during which haiku underwent further codification. Specific conventions such as the 5-7-5 syllable structure, the use of seasonal words (kigo), and cutting words (kireji) became standardized.</p>
+                <p>Various haiku schools emerged, enriching the genre with diverse approaches to composition and theme.</p>
+              </div>
+            </div>
+            <div class="timeline-item right">
+              <div class="timeline-content">
+                <h3>19th Century - Modernization</h3>
+                <p>The Meiji Restoration ushered in rapid modernization and Western influence. Masaoka Shiki redefined the traditional hokku by emphasizing "shasei" (sketching from life) and coined the term "haiku."</p>
+                <p>Cultural attitudes shifted toward more individualistic, realistic perspectives in art and literature.</p>
+              </div>
+            </div>
+            <div class="timeline-item left">
+              <div class="timeline-content">
+                <h3>20th Century - Globalization</h3>
+                <p>After World War II, modern or gendai haiku emerged, exploring more personal themes beyond nature. The digital revolution dramatically altered haiku's landscape, allowing global sharing and collaboration.</p>
+                <p>Haiku became a bridge between traditional Japanese aesthetics and contemporary artistic expression worldwide.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="visual" class="tab-content">
+          <h3>Visual Elements in Haiku</h3>
+          <p>
+            The visual aspects of Japanese kanji used in haiku add profound layers of meaning that are often lost in translation. Bashō's famous frog pond haiku (古池や蛙飛び込む水の音) demonstrates how the very characters themselves reinforce the poetry's imagery through their visual forms.
+          </p>
+          
+          <div class="kanji-explained">
+            <h3>Radicals and Visual Metaphors in Bashō's Frog Pond Haiku</h3>
+            <p>The kanji characters in Bashō's famous haiku create a visual narrative that perfectly complements the poem's progression: from ancient stillness (古池), to sudden life and movement (蛙飛), to penetration (込), to elemental contact (水), and finally to sensory perception (音).</p>
+            
+            <div class="kanji-container">
+              <div class="kanji-card">
+                <div class="kanji-character">古</div>
+                <div class="kanji-meaning">old/ancient</div>
+                <p>Simple, sturdy strokes mirror the ancient, unchanging pond - suggesting permanence and timelessness.</p>
+              </div>
+              <div class="kanji-card">
+                <div class="kanji-character">池</div>
+                <div class="kanji-meaning">pond</div>
+                <p>With the water radical 氵on the left, this character visually contains liquid within boundaries - perfectly representing a pond.</p>
+              </div>
+              <div class="kanji-card">
+                <div class="kanji-character">蛙</div>
+                <div class="kanji-meaning">frog</div>
+                <p>Contains the insect/worm radical 虫, suggesting a small creature with its intricate strokes - compact life energy.</p>
+              </div>
+              <div class="kanji-card">
+                <div class="kanji-character">飛</div>
+                <div class="kanji-meaning">fly/jump</div>
+                <p>This dynamic character suggests upward motion - visually capturing the moment of the frog's leap.</p>
+              </div>
+              <div class="kanji-card">
+                <div class="kanji-character">込</div>
+                <div class="kanji-meaning">enter into</div>
+                <p>With its movement radical 辶 at the bottom, this character shows directional force - depicting the frog's entry into water.</p>
+              </div>
+              <div class="kanji-card">
+                <div class="kanji-character">水</div>
+                <div class="kanji-meaning">water</div>
+                <p>Curved, liquid strokes that mimic rippling water - representing the disturbed surface of the once-still pond.</p>
+              </div>
+              <div class="kanji-card">
+                <div class="kanji-character">音</div>
+                <div class="kanji-meaning">sound</div>
+                <p>Lines extending outward represent sound waves moving from the central point of impact.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="interactive-kanji">
+            <h3>Explore Kanji Visual Metaphors</h3>
+            <p>Click on a kanji to learn more about its visual significance in haiku poetry:</p>
+            <div class="kanji-display" id="kanji-display">
+              <p>Click the button below to explore kanji visual metaphors</p>
+            </div>
+            <button id="explore-kanji">Explore Kanji</button>
+          </div>
+        </div>
+        
+        <div id="global" class="tab-content">
+          <h3>Global Influence of Haiku</h3>
+          <p>
+            From its origins in Japan, haiku has transcended cultural and linguistic boundaries to become a globally practiced poetic form. Its concise format and focus on direct experience have resonated with poets worldwide, influencing literary movements across continents.
+          </p>
+          
+          <div class="gallery">
+            <img src="https://source.unsplash.com/random/400x300/?global,poetry" alt="Global Poetry">
+            <img src="https://source.unsplash.com/random/400x300/?translation,book" alt="Translation">
+            <img src="https://source.unsplash.com/random/400x300/?cultural,exchange" alt="Cultural Exchange">
+            <img src="https://source.unsplash.com/random/400x300/?international,writing" alt="International Writing">
+          </div>
+          
+          <h3>Lost in Translation</h3>
+          <p>
+            When haiku crosses language barriers, several key elements are often lost:
+          </p>
+          <ul>
+            <li><strong>Visual form of kanji:</strong> The English translation cannot capture how the kanji characters visually represent what they describe.</li>
+            <li><strong>Radical connections:</strong> Related concepts in Japanese often share radicals (component parts of characters), creating subtle connections absent in translation.</li>
+            <li><strong>Spatial arrangement:</strong> Japanese writing creates visual patterns that echo the poem's meaning.</li>
+            <li><strong>Sound patterns:</strong> The original Japanese has specific sound qualities that create auditory imagery matching the content.</li>
+            <li><strong>Grammatical structure:</strong> Japanese allows for a more immediate, present-tense feeling without requiring English articles or pronouns.</li>
+            <li><strong>Cultural connotations:</strong> Certain kanji carry cultural associations developed over centuries.</li>
+          </ul>
+          
+          <p>
+            Despite these challenges, the global adoption of haiku has led to fascinating adaptations and interpretations that both honor the tradition and expand its possibilities across cultures.
+          </p>
+        </div>
+        
+    
+      <h2>Cultural Aesthetics in Haiku</h2>
+      <p>
+        Japanese aesthetic principles deeply embedded in haiku include:
+      </p>
+      
+      <div class="features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 20px 0;">
+        <div class="feature-box" style="background-color: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 25px; transition: transform 0.3s; text-align: center;">
+          <img src="https://source.unsplash.com/random/80x80/?simplicity" alt="Simplicity Icon">
+          <h3 style="font-family: 'Playfair Display', serif; color: #a1663e; margin-bottom: 15px;">Wabi-Sabi</h3>
+          <p>The beauty found in imperfection, impermanence, and the authentic. Haiku often celebrates the flawed, weathered, or transient aspects of nature.</p>
+        </div>
+        <div class="feature-box" style="background-color: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 25px; transition: transform 0.3s; text-align: center;">
+          <img src="https://source.unsplash.com/random/80x80/?emptiness" alt="Emptiness Icon">
+          <h3 style="font-family: 'Playfair Display', serif; color: #a1663e; margin-bottom: 15px;">Ma (間)</h3>
+          <p>The meaningful emptiness or negative space. In haiku, what remains unsaid is as important as what is expressed, creating room for reader interpretation.</p>
+        </div>
+        <div class="feature-box" style="background-color: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 25px; transition: transform 0.3s; text-align: center;">
+          <img src="https://source.unsplash.com/random/80x80/?awareness" alt="Awareness Icon">
+          <h3 style="font-family: 'Playfair Display', serif; color: #a1663e; margin-bottom: 15px;">Mono no Aware</h3>
+          <p>The pathos of things - a sensitivity to the impermanence of life. Haiku often captures fleeting moments that evoke this gentle sadness about transience.</p>
+        </div>
+      </div>
+      
+      <p>
+        These aesthetic principles aren't merely stylistic choices but reflect deeply held philosophical and spiritual perspectives within Japanese culture. They connect haiku to broader traditions in Japanese arts, from tea ceremony to garden design, all sharing an appreciation for simplicity, suggestion over statement, and the beauty of the ephemeral.
+      </p>
+      
+      <div class="quote-section">
+        <p>"The haiku that reveals seventy to eighty percent of its subject is good. Those that reveal fifty to sixty percent, we never tire of."</p>
+        <div class="author">— Matsuo Bashō</div>
+      </div>
+    </article>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 Haiku Muse. All Rights Reserved.</p>
+  </footer>
+  
+  <script>
+    // Tab functionality
+    function openTab(evt, tabName) {
+      // Declare variables
+      var i, tabcontent, tabbuttons;
+      
+      // Get all elements with class="tab-content" and hide them
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+      }
+      
+      // Get all elements with class="tab-button" and remove the class "active"
+      tabbuttons = document.getElementsByClassName("tab-button");
+      for (i = 0; i < tabbuttons.length; i++) {
+        tabbuttons[i].classList.remove("active");
+      }
+      
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+    
+    // Kanji exploration functionality
+    const kanjiDisplayElement = document.getElementById('kanji-display');
+    const exploreButton = document.getElementById('explore-kanji');
+    
+    // Sample kanji explanations
+    const kanjiExplanations = [
+      {
+        character: "侘 (wabi)",
+        meaning: "The beauty of simplicity",
+        explanation: "This character represents finding beauty in simplicity and imperfection - a cornerstone of haiku aesthetics."
+      },
+      {
+        character: "寂 (sabi)",
+        meaning: "The patina of age",
+        explanation: "This character embodies the beauty that comes with age and weathering - the aesthetic appreciation of impermanence."
+      },
+      {
+        character: "切 (kire)",
+        meaning: "Cutting",
+        explanation: "This represents the 'cutting word' technique in haiku that creates a pause or shift in perspective, essential to haiku's impact."
+      },
+      {
+        character: "季 (ki)",
+        meaning: "Season",
+        explanation: "This kanji is found in 季語 (kigo) - the seasonal references that ground haiku in the natural world and temporal context."
+      },
+      {
+        character: "間 (ma)",
+        meaning: "Space/interval",
+        explanation: "This character represents the concept of negative space - what remains unsaid in haiku is as important as what is expressed."
+      },
+      {
+        character: "風 (fū)",
+        meaning: "Wind/style",
+        explanation: "This character appears in 俳風 (haifū) referring to haiku style or essence - the distinctive approach of different haiku poets."
+      }
+    ];
+    
+    // Function to display a random kanji explanation
+    function displayRandomKanji() {
+      const randomIndex = Math.floor(Math.random() * kanjiExplanations.length);
+      const selectedKanji = kanjiExplanations[randomIndex];
+      
+      kanjiDisplayElement.innerHTML = `
+        <p style="font-size: 2em; margin-bottom: 10px;">${selectedKanji.character}</p>
+        <p style="font-weight: 500; color: #a1663e; margin-bottom: 10px;">${selectedKanji.meaning}</p>
+        <p>${selectedKanji.explanation}</p>
+      `;
+    }
+    
+    // Add event listener to the button
+    exploreButton.addEventListener('click', displayRandomKanji);
+    
+    // Initialize with a random kanji when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      // Optional: display a random kanji on page load
+      // displayRandomKanji();
+    });
+  </script>
+</body>
+</html>

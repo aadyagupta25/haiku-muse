@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haiku Muse - Timeline</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f6f1; /* Light earthy tone */
+      color: #3d3d3d;
+      line-height: 1.7;
+    }
+    /* Header with colourful, earthy banner */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, rgba(139,69,19,0.7), rgba(205,133,63,0.8)),
+        url('https://source.unsplash.com/1600x900/?japanese-garden') no-repeat center center/cover;
+      color: #fff;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.8em;
+      margin: 20px 0;
+    }
+    /* Navigation Bar */
+    nav {
+      background-color: #fff;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 10px 0;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #3d3d3d;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: #e6c59c;
+      color: #a1663e;
+    }
+    nav ul li a.active {
+      background-color: #a1663e;
+      color: #fff;
+    }
+    /* Main Content */
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    /* Article Styling */
+    article {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      color: #a1663e;
+      border-bottom: 3px solid #a1663e;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    article p {
+      font-size: 1.2em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+    
+    /* Timeline Specific Styles */
+    .timeline-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .era-filter {
+      background-color: #fff;
+      border: 2px solid #a1663e;
+      color: #a1663e;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .era-filter:hover, .era-filter.active {
+      background-color: #a1663e;
+      color: #fff;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #a1663e;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+    
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: calc(50% - 40px);
+      margin-bottom: 30px;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+    
+    .timeline-content {
+      padding: 20px;
+      background-color: white;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .timeline-content:hover {
+      transform: scale(1.03);
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-content {
+      border-left: 5px solid #a1663e;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content {
+      border-right: 5px solid #a1663e;
+    }
+    
+    .timeline-year {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: #a1663e;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      z-index: 1;
+      top: 20px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-year {
+      right: -30px;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-year {
+      left: -30px;
+    }
+    
+    .timeline-content h3 {
+      font-family: 'Playfair Display', serif;
+      color: #a1663e;
+      margin-top: 0;
+      font-size: 1.8em;
+    }
+    
+    .timeline-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    
+    .timeline-haiku {
+      background-color: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      font-style: italic;
+      margin: 15px 0;
+      text-align: center;
+    }
+    
+    .read-more-btn {
+      background-color: #a1663e;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    
+    .read-more-btn:hover {
+      background-color: #7d4f2e;
+    }
+    
+    .hidden-content {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed #ccc;
+    }
+    
+    /* Modal for expanded content */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    .modal-content {
+      background-color: #f9f6f1;
+      margin: 5% auto;
+      padding: 30px;
+      width: 80%;
+      max-width: 900px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      border-radius: 10px;
+      position: relative;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    
+    .close-modal {
+      color: #a1663e;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #a1663e;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Responsive design for timeline */
+    @media (max-width: 768px) {
+      .timeline::after {
+        left: 40px;
+      }
+      
+      .timeline-item {
+        width: calc(100% - 90px);
+        padding-left: 70px;
+        padding-right: 20px;
+      }
+      
+      .timeline-item:nth-child(odd) {
+        left: 0;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-year {
+        left: 10px;
+        top: 20px;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-year {
+        right: auto;
+        left: 10px;
+      }
+      
+      .timeline-item:nth-child(even) .timeline-content {
+        border-right: none;
+        border-left: 5px solid #a1663e;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.8em;
+      }
+      article h2 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Haiku Timeline</h1>
+    <p>The Evolution of Haiku Through the Centuries</p>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="introduction.html">Introduction</a></li>
+      <li><a href="timeline.html" class="active">Timeline</a></li>
+      <li><a href="cultural.html">Culture</a></li>
+      <li><a href="popular.html">Pop Culture</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <article>
+      <h2>The Journey of Haiku</h2>
+      <p>
+        The timeline below charts the fascinating evolution of haiku poetry from its origins in 16th century Japan to its global presence in contemporary literature. Explore key moments, influential poets, and pivotal publications that have shaped this enduring poetic form.
+      </p>
+      
+      <div class="timeline-controls">
+        <button class="era-filter active" data-era="all">All Eras</button>
+        <button class="era-filter" data-era="edo">Edo Period (1603-1868)</button>
+        <button class="era-filter" data-era="meiji">Meiji Period (1868-1912)</button>
+        <button class="era-filter" data-era="modern">Modern Era (1912-1989)</button>
+        <button class="era-filter" data-era="contemporary">Contemporary (1989-Present)</button>
+      </div>
+      
+      <div class="timeline">
+        <!-- Edo Period -->
+        <div class="timeline-item" data-era="edo">
+          <div class="timeline-year">1600s</div>
+          <div class="timeline-content">
+            <h3>Birth of Haikai</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japanese-art" alt="Early haikai illustration">
+            <p>The origins of what would later become haiku emerged during the early 17th century as the opening stanza (hokku) of linked verse poetry called renga. These hokku would eventually evolve into independent poems.</p>
+            <div class="timeline-haiku">
+              "Furu ike ya<br>
+              kawazu tobikomu<br>
+              mizu no oto"<br>
+              <small>(The old pond, a frog jumps in — sound of water)</small>
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>In the early 1600s, haikai no renga (comic linked verse) began to gain popularity and respectability under poets like Matsunaga Teitoku (1571-1653) who established formal rules and elevated the artform beyond mere comic verses. The poetic form emphasized seasonal words (kigo) and a cutting word (kireji) that divided the poem into two juxtaposed parts.</p>
+              <p>The term "haikai" encompassed a broad range of linked verse forms that were less formal than the classical renga traditions. These forms allowed for more vernacular language, humor, and references to everyday life, making poetry accessible to the merchant class during Japan's growing urbanization in the Edo period.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="edo">
+          <div class="timeline-year">1644</div>
+          <div class="timeline-content">
+            <h3>Matsuo Bashō Born</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japanese-calligraphy" alt="Matsuo Basho portrait">
+            <p>Matsuo Bashō (1644-1694), widely regarded as the greatest master of haiku, was born. His work transformed the hokku from a social poetic game into a serious art form focused on nature, seasons, and the human condition.</p>
+            <div class="timeline-haiku">
+              "Autumn moonlight—<br>
+              a worm digs silently<br>
+              into the chestnut."
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>Born near Ueno in Iga Province (now part of Mie Prefecture), Matsuo Kinsaku (who would later take the pen name Bashō) began his career as a servant to Todo Yoshitada, a local nobleman. After Yoshitada's death in 1666, Bashō left home and eventually moved to Edo (now Tokyo) where he became involved in the haikai poetry circles.</p>
+              <p>Bashō studied under several masters and gradually developed his own aesthetic principles. His approach emphasized "karumi" (lightness) and "sabi" (a sense of loneliness and impermanence). His travel journals, including "The Narrow Road to the Deep North" (Oku no Hosomichi), combined prose and hokku in a revolutionary way that influenced Japanese literature for centuries.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="edo">
+          <div class="timeline-year">1679</div>
+          <div class="timeline-content">
+            <h3>Bashō's First Poetry Collection</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japanese-book" alt="Old Japanese book">
+            <p>"Tō no Hototogisu" (The Cuckoo of Edo), Bashō's first poetry collection, was published. This marked the beginning of his influence on the development of the hokku tradition.</p>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>After Bashō moved to Fukagawa, on the eastern edge of Edo (now Tokyo), he began to attract many disciples. His modest hut became a center for poetic activity. A banana tree (bashō) planted by his disciples near his hut inspired his pen name.</p>
+              <p>His first collection reflected his early style before he reached full maturity as a poet. In the years that followed, he would undertake several legendary journeys across Japan, documenting his travels through a combination of prose and poetry that deeply influenced Japanese literature.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="edo">
+          <div class="timeline-year">1694</div>
+          <div class="timeline-content">
+            <h3>Death of Bashō</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japanese-garden" alt="Traditional Japanese garden">
+            <p>Matsuo Bashō died in Osaka at the age of 50. His final haiku reflected on his approaching death and cemented his legacy as the greatest haiku master.</p>
+            <div class="timeline-haiku">
+              "Sick on a journey,<br>
+              my dreams wander<br>
+              over withered fields."
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>In the autumn of 1694, Bashō fell ill while traveling. He died in Osaka, surrounded by his disciples. His death poem (jisei) captured the essence of impermanence that was central to much of his work. After his death, his disciples compiled "Bashō's Haiku Collections" (Bashō Kushu), helping to preserve and spread his poetic legacy.</p>
+              <p>Bashō's influence extended far beyond his lifetime. He elevated the hokku from a light verse form to a profound medium for spiritual and philosophical expression. His emphasis on simplicity, directness, and the connection between humanity and nature established principles that continue to guide haiku poets around the world.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="edo">
+          <div class="timeline-year">1750s</div>
+          <div class="timeline-content">
+            <h3>Yosa Buson's Rise</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japanese-painting" alt="Traditional Japanese painting">
+            <p>Yosa Buson (1716-1784), a prominent poet-painter, emerged as one of the great haikai masters of the mid-Edo period. His work combined painterly imagery with poetic subtlety.</p>
+            <div class="timeline-haiku">
+              "A spring sea rising<br>
+              and falling, all day<br>
+              I've watched it."
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>Unlike Bashō, Buson was as renowned for his paintings as for his poetry. He often incorporated elements of Chinese poetry and painting into his work, creating haiku that were visually evocative and rich in cultural allusions. As a member of the "Return to Bashō" movement, he sought to revive what he saw as the authentic spirit of haikai after a period of decline.</p>
+              <p>Buson's approach differed from Bashō's in its greater emphasis on aesthetic beauty and literary technique rather than spiritual insight. His work represents an important development in haiku history, bridging the gap between Bashō's naturalism and the more technically refined approach of later poets.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Meiji Period -->
+        <div class="timeline-item" data-era="meiji">
+          <div class="timeline-year">1867</div>
+          <div class="timeline-content">
+            <h3>Meiji Restoration</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japan-history" alt="Historical Japanese scene">
+            <p>The Meiji Restoration marked a period of rapid modernization in Japan. This cultural transformation would significantly impact haikai poetry, leading to reforms in the tradition.</p>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>The Meiji period (1868-1912) saw Japan's rapid modernization and increased contact with Western literature and ideas. This created both challenges and opportunities for traditional Japanese poetic forms. Some conservative poets continued to work within established haikai traditions, while others began experimenting with new approaches influenced by Western literary movements.</p>
+              <p>The government's emphasis on modernization initially led to a decline in support for traditional arts, including haikai. However, this period of cultural flux also created the conditions for significant reforms in Japanese poetry that would eventually revitalize the haiku form.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="meiji">
+          <div class="timeline-year">1892</div>
+          <div class="timeline-content">
+            <h3>Masaoka Shiki's Reforms</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?japanese-writer" alt="Traditional Japanese writing scene">
+            <p>Masaoka Shiki (1867-1902) began advocating for reform in traditional Japanese poetry. He coined the term "haiku" to distinguish the stand-alone form from the older linked-verse traditions.</p>
+            <div class="timeline-haiku">
+              "For these three days<br>
+              the rain has continued—<br>
+              autumn departs."
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>Shiki's reforms were part of a broader modernization of Japanese literature during the Meiji period. He criticized what he saw as the stagnation of haikai poetry and advocated for a "sketch from life" (shasei) approach influenced by Western realism. By coining the term "haiku," he emphasized the independence of the 5-7-5 syllable form from the longer linked verse traditions.</p>
+              <p>Despite suffering from tuberculosis for much of his adult life, Shiki was remarkably productive as a poet, critic, and literary theorist. He founded several influential journals and mentored important poets who would continue his reforms. His emphasis on direct observation and clear imagery helped revitalize Japanese poetry at a time of rapid cultural change.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modern Era -->
+        <div class="timeline-item" data-era="modern">
+          <div class="timeline-year">1912</div>
+          <div class="timeline-content">
+            <h3>The Free Verse Haiku Movement</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?poetry-book" alt="Modern poetry book">
+            <p>Ogiwara Seisensui and Kawahigashi Hekigoto launched the "free verse" haiku movement, challenging the traditional 5-7-5 syllable pattern and seasonal references.</p>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>The free verse haiku movement represented a radical departure from traditional haiku principles. Proponents argued that the 5-7-5 syllable pattern and seasonal references (kigo) were unnecessary constraints that limited haiku's expressive potential. They sought to create a more flexible form that could directly capture modern experiences.</p>
+              <p>This movement created a significant divide in the haiku world between traditionalists who insisted on maintaining established forms and progressives who embraced experimentation. The debate about what constitutes "authentic" haiku continues to this day, with different schools of thought emphasizing different aspects of the tradition.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="modern">
+          <div class="timeline-year">1940s</div>
+          <div class="timeline-content">
+            <h3>Haiku During World War II</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?war-memorial" alt="War memorial">
+            <p>During World War II, haiku was often used for nationalist propaganda. However, some poets maintained the spiritual and humanistic tradition of haiku even during these difficult times.</p>
+            <div class="timeline-haiku">
+              "In the city ruins<br>
+              a plum tree blooms—<br>
+              first spring after war."
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>The wartime period was challenging for haiku poets. Government censorship and pressure to support the war effort affected the content and publication of poetry. Some haiku societies were disbanded or forced to merge, and paper shortages limited publishing opportunities. Poets who expressed anti-war sentiments or failed to conform to nationalist ideologies faced persecution.</p>
+              <p>Despite these challenges, many poets continued to write haiku that subtly preserved humanistic values and connections to nature. After the war, haiku experienced a period of renewal and reassessment, with many poets reflecting on the war experience and seeking to reclaim haiku's spiritual and aesthetic traditions.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="modern">
+          <div class="timeline-year">1950s</div>
+          <div class="timeline-content">
+            <h3>Western Haiku Emerges</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?global-culture" alt="Global cultural exchange">
+            <p>Haiku began to gain significant popularity in Western countries, particularly after R.H. Blyth published his influential four-volume series "Haiku" (1949-1952) introducing English-speaking audiences to Japanese haiku traditions.</p>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>R.H. Blyth's work was instrumental in popularizing haiku in the West, especially among Beat Generation poets like Jack Kerouac and Allen Ginsberg. Unlike earlier translations that often attempted to force haiku into rhyming formats or Western poetic conventions, Blyth emphasized the Zen-influenced aesthetic of traditional Japanese haiku.</p>
+              <p>The American Haiku Association was founded in 1956, and the first English-language haiku journal, American Haiku, began publication in 1963. As haiku spread globally, poets and scholars engaged in ongoing debates about how to adapt the form to different languages and cultural contexts while remaining true to its essential spirit.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contemporary Era -->
+        <div class="timeline-item" data-era="contemporary">
+          <div class="timeline-year">1990s</div>
+          <div class="timeline-content">
+            <h3>Digital Age Haiku</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?digital-art" alt="Digital art">
+            <p>The internet revolutionized haiku communities, allowing poets from around the world to connect, share work, and participate in global haiku contests and publications.</p>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>Online forums, email lists, and websites dedicated to haiku created unprecedented opportunities for haiku poets to connect across geographical and cultural boundaries. Digital platforms made it easier to publish and distribute haiku journals and anthologies, significantly expanding the global haiku community.</p>
+              <p>The Haiku Foundation was established in 2009 to preserve and archive haiku resources, promote education about haiku, and support research and publishing in the field. Digital archives also made historical haiku texts more accessible to scholars and enthusiasts worldwide.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="contemporary">
+          <div class="timeline-year">2000s</div>
+          <div class="timeline-content">
+            <h3>Haiku in Popular Culture</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?social-media" alt="Social media">
+            <p>Haiku found new life in popular culture, appearing in movies, television shows, advertising, and social media platforms like Twitter, where the brevity of haiku suited the platform's constraints.</p>
+            <div class="timeline-haiku">
+              "Social media<br>
+              seventeen syllables shared<br>
+              global connection"
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>The widespread recognition of haiku's 5-7-5 syllable pattern (though this is a simplification of the Japanese form) made it a recognizable poetic structure even for those with limited knowledge of poetry. This accessibility contributed to haiku's appearance in unexpected contexts, from corporate marketing to political commentary.</p>
+              <p>The constraint-based nature of haiku also made it popular for creative exercises and educational activities. Many people who wouldn't typically write poetry found haiku an approachable form for creative expression, further expanding its cultural impact beyond traditional literary circles.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-era="contemporary">
+          <div class="timeline-year">2020s</div>
+          <div class="timeline-content">
+            <h3>Haiku in the Pandemic Era</h3>
+            <img class="timeline-image" src="https://source.unsplash.com/random/800x600/?isolation" alt="Pandemic isolation">
+            <p>During the global COVID-19 pandemic, many turned to haiku as a way to process isolation, uncertainty, and a renewed connection with nature and simple daily experiences.</p>
+            <div class="timeline-haiku">
+              "Empty city streets<br>
+              cherry blossoms still falling—<br>
+              spring doesn't notice"
+            </div>
+            <button class="read-more-btn">Read More</button>
+            <div class="hidden-content">
+              <p>The pandemic created conditions reminiscent of the solitude and nature observation that inspired many historical haiku masters. With many people experiencing restricted movement and increased time in limited environments, the haiku practice<p>The pandemic created conditions reminiscent of the solitude and nature observation that inspired many historical haiku masters. With many people experiencing restricted movement and increased time in limited environments, the haiku practice of finding meaning in small moments and seasonal changes took on renewed relevance.</p>
+              <p>Virtual haiku gatherings, online workshops, and pandemic-themed haiku collections emerged as poets used this concise form to document an extraordinary global experience. The tradition of haiku as a way to process difficult emotions and find connection through shared observation continued to demonstrate the form's enduring value.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  
+  <!-- Modal for expanded content -->
+  <div id="contentModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3 id="modalTitle"></h3>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  
+  <div class="back-to-top">↑</div>
+  
+  <script>
+    // Era filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const eraFilters = document.querySelectorAll('.era-filter');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      // Add click event to each filter button
+      eraFilters.forEach(filter => {
+        filter.addEventListener('click', function() {
+          // Remove active class from all filters
+          eraFilters.forEach(f => f.classList.remove('active'));
+          // Add active class to clicked filter
+          this.classList.add('active');
+          
+          const selectedEra = this.getAttribute('data-era');
+          
+          // Show/hide timeline items based on selected era
+          timelineItems.forEach(item => {
+            if (selectedEra === 'all' || item.getAttribute('data-era') === selectedEra) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Read More button functionality
+      const readMoreButtons = document.querySelectorAll('.read-more-btn');
+      const modal = document.getElementById('contentModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalContent = document.getElementById('modalContent');
+      const closeModal = document.querySelector('.close-modal');
+      
+      readMoreButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const content = this.parentElement;
+          const title = content.querySelector('h3').textContent;
+          const hiddenContent = content.querySelector('.hidden-content').innerHTML;
+          const haiku = content.querySelector('.timeline-haiku') ? 
+                       content.querySelector('.timeline-haiku').outerHTML : '';
+          const image = content.querySelector('.timeline-image') ?
+                       content.querySelector('.timeline-image').outerHTML : '';
+          
+          modalTitle.textContent = title;
+          modalContent.innerHTML = image + '<p>' + content.querySelectorAll('p')[0].textContent + '</p>' + haiku + hiddenContent;
+          
+          modal.style.display = 'block';
+        });
+      });
+      
+      // Close modal functionality
+      closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+      
+      window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      // Back to top button functionality
+      const backToTopButton = document.querySelector('.back-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
